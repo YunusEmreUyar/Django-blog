@@ -1,3 +1,5 @@
 #Fully Featured Django blog
 
-blog folder is the main folder.
+Styled with bootstrap 4 and used cdn's.
+
+'blog' folder is the main folder. And all logos and marks are fictional.
