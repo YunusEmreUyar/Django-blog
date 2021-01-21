@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Homepage{% endblock %}
+
+{% block main %}
+<br><br>
+  <div class="mx-auto"  style="max-width:58rem;">
+    {% for post in object_list %}
+      <div class="container container-fluid" >
+          <div class="justify-content:center;"><h2><a style="color:black" href="{% url 'category' post.category.id %}">{{ post.category }}</a></h2></div>
+          {% if post.cover %}
+            <a href="{% url 'article-detail' post.pk %}"><img src={{post.cover.url}} class="card-img-top" style="max-width: 100%; height: auto;"></a>
+          {% else %}
+            <a href="{% url 'article-detail' post.pk %}"><img src="{% static 'default-movie.jpg' %}" style="max-width: 100%; height: auto;" class="card-img-top"></a>
+          {% endif %}
+          <div><h1 class="alert-secondary" style="font-family: 'Playfair Display';">{{ post.title }}</h1></div>
+          Written by <a href="{% url 'author' post.author.id %}">{{ post.author }}</a><p>Estimated reading time: {{ post.estimated_reading_time }} mins.</p>
+          <p style="font-family: Georgia, serif;">{{ post.description }}</p>
+          <p style="text-align:right; font-family: 'Kalinga', 'Roboto', 'Helvetica', sans-serif !important;"><small>{{ post.date_created | naturaltime }}</small></p><hr>
+      </div>
+      {% endfor %}
+  </div><br><br><br><br>
+
+{% endblock %}

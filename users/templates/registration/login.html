@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Login{% endblock %}
+{% block main %}
+<br><br>
+
+<div class="container container-fluid" style="max-width:1080px;">
+	<form method="POST">
+		{% csrf_token %}
+		<fieldset class="form-group">
+			{{ form | crispy }}
+		</fieldset>
+		<div class="form-group">
+			<button class="btn btn-info" type="submit">Log In</button><br>
+			<a href="{% url 'register' %}"><small>Do not you have an account?</small></a><br>
+			<a href="{% url 'password_reset' %}"><small>Forgot my password.</small></a>
+		</div>
+	</form>
+</div>
+<br><br><br><br><br>
+{% endblock main %}

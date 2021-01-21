@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block main %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4" style="font-family: 'Playfair Display'">{{ post.title|safe }}</h1>
+    <p class="lead" style="font-family: 'Playfair Display'">{{ post.description }}</p>
+    <p class="lead" style="font-family: 'Playfair Display'">At {{post.date_created}}</p>
+    <p class="lead" style="font-family: 'Playfair Display'">Estimated reading time: {{ post.estimated_reading_time }} mins.</p>
+  </div>
+</div>
+
+<div class="container container-fluid mt-5 mb-5" style="max-width:58rem;">
+  {% if post.cover %}
+    <img src={{post.cover.url}} class="card-img-top">
+  {% else %}
+    <img src="{% static 'default-movie.jpg' %}" class="card-img-top">
+  {% endif %}
+  <p>{{ post.content | safe }}</p>
+  <br>
+  <div id="toAdd">
+    {% if user.is_authenticated %}
+        {% if user in post.likes.all %}
+          <p><strong>Thank you for like.</strong></p>
+        {% else %}
+        <a type="submit" id="like_" data-href="{{ post.get_api_like_url }}" href='{{ post.get_like_url }}' class="btn btn-primary"><i class="fa fa-thumbs-up"> Like</i></a>
+        {% endif %}
+      </form>
+    {% else %}
+      <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}"><small>Login to like</small></a><br>
+    {% endif %}
+  </div>
+<br>
+</div>
+
+
+
+<script>
+$(document).ready(function() {
+  $("#like_").click(function(e){
+    e.preventDefault()
+    var this_ = $(this)
+    var likeUrl = this_.attr("data-href")
+
+    $.ajax({
+      url: likeUrl,
+      method: "GET",
+      data: {},
+      success: function(data){
+      }, error: function(error){
+        console.log("error")
+      }
+    })
+    $("#toAdd").append("<p><strong>Beğendiğin için teşekkür ederim.</strong></p>")
+    this_.hide()
+  })
+})
+</script>
+
+
+
+<div class="container container-fluid" style="max-width:58rem;">
+  <hr>
+  <div class="row">
+    <div class="col">
+      {% if post.author.profile.profile_pic %}
+        <img src="{{ post.author.profile.profile_pic.url }}" class="rounded-circle float-left" style="max-width: 180px; height: auto;">
+      {% else %}
+        <img src="{% static 'default-profile.jpg' %}"  class="rounded-circle float-left" style="max-width: 180px; height: auto;">
+      {% endif %}
+      <p style="margin-left:5px;">{{ post.author.profile.description }}</p>
+      <p>
+      {% if post.author.profile.instagram_url %}
+        <a class="btn btn-info btn-sm" href="{{ post.author.profile.instagram_url }}"><i class="fa fa-instagram"> Instagram</i></a>
+      {% endif %}
+      {% if post.author.profile.medium_url %}
+        <a class="btn btn-info btn-sm" href="{{ post.author.profile.medium_url }}"><i class="fa fa-medium-m"> Medium</i></a>
+      {% endif %}
+      </p>
+    </div>
+  </div>
+  <hr>
+</div>
+<br>
+
+
+<div class="container container-fluid" style="max-width:58rem;">
+
+<br><br>
+  {% if comments %}
+  <h2 class="text-secondary">Comments for: {{ post.title }}</h2>
+  <hr>
+    {% for comment in comments %}
+      <div class="container container-fluid">
+        <span>
+          {% if comment.created_by.profile.profile_pic %}
+            <img src="{{ comment.created_by.profile.profile_pic.url }}" class="float-left rounded-circle" style="max-width:70px; height: auto;">
+          {% else %}
+            <img src="{% static 'default-profile.jpg' %}" class="float-left rounded-circle" style="max-width:60px; height: auto;">
+          {% endif %}
+          <strong class="text-info">{{ comment.created_by }}</strong>
+          <small class="text-muted">{{ comment.created_at }}</small>
+        </span>
+        <p style="font-family: 'Playfair Display'">{{ comment.content|safe }}</p>
+      </div>
+      <hr>
+    {% endfor %}
+  {% else %}
+    <strong class="text-secondary">There is no comment yet.</strong><br><br>
+  {% endif %}
+  {% if user.is_authenticated %}
+  <br><br>
+  <h2 class="text-secondary">Leave a comment for: {{ post.title }}</h2><br><br>
+  <form method="POST" id="comment_form">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ comment_form |crispy }}
+      <button class="btn btn-info" type="submit">Submit</button>
+    </div>
+  </form>
+  {% else %}
+  <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}"><small>Login to comment</small></a><br>
+  {% endif %}
+</div>
+<br><br>
+
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Kayıt ol{% endblock %}
+{% block main %}
+<br><br>
+
+<div class="container container-fluid" style="max-width:1080px;">
+	<form method="POST">
+		{% csrf_token %}
+		<fieldset class="form-group mr-3 ml-3">
+			{{ form| crispy }}
+		</fieldset>
+		<div class="form-group">
+			<button class="btn btn-outline-info ml-3" type="submit">Register</button>
+		</div>
+	</form>
+	<div class="border-top pt-3 ml-3">
+		<small class="text-muted">
+			Already have an account? <a href="{% url 'login' %}">Login</a>
+		</small>
+	</div>
+</div>
+<br><br>
+{% endblock main %}

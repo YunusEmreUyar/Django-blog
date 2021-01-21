@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}{{ category.category.name }} page{% endblock %}
+
+{% block main %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4" style="text-align:center; font-family: 'Playfair Display'">Posts under the {{ category.category.name }} category</h1>
+
+  </div>
+</div>
+<div class="mx-auto"  style="max-width:58rem;">
+  {% for post in posts %}
+    <div class="container container-fluid">
+        {% if post.cover %}
+          <a href="{% url 'article-detail' post.pk %}"><img src={{post.cover.url}} class="card-img-top"></a>
+        {% else %}
+          <a href="{% url 'article-detail' post.pk %}"><img src="{% static 'default-movie.jpg' %}" style="max-width: 100%; height: auto;" class="card-img-top"></a>
+        {% endif %}
+        <div><h1 class="alert-secondary" style="font-family: 'Playfair Display';">{{ post.title }}</h1></div>
+        Written by <a href="{% url 'author' post.author.id %}">{{ post.author }}</a><p>Estimated reading time: {{ post.estimated_reading_time }} mins.</p>
+        <p style="font-family: Georgia, serif;">{{ post.description }}</p>
+        <p style="text-align:right; font-family: 'Kalinga', 'Roboto', 'Helvetica', sans-serif !important;"><small>{{ post.date_created | naturaltime }}</small></p><hr>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
