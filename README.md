@@ -1,3 +1,3 @@
 #Fully Featured Django blog
 
-blog folder is the main project folder.
+blog folder is the main folder.
