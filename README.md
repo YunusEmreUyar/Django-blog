@@ -6,3 +6,9 @@ The blog has authentication system, forgot password mailing system, category vie
 
 'blog' folder is the main folder. And all logos and marks are fictional.
 
+Some pictures from the project:
+
+![Screenshot](/for_readme/home1.png)
+![Screenshot](/for_readme/respo1.png)
+![Screenshot](/for_readme/respo2.png)
+![Screenshot](/for_readme/loginscreen.png)
