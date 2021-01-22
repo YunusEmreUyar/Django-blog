@@ -100,7 +100,7 @@ $(document).ready(function() {
           {% if comment.created_by.profile.profile_pic %}
             <img src="{{ comment.created_by.profile.profile_pic.url }}" class="float-left rounded-circle" style="max-width:70px; height: auto;">
           {% else %}
-            <img src="{% static 'default-profile.jpg' %}" class="float-left rounded-circle" style="max-width:60px; height: auto;">
+            <img src="{% static 'default-profile.png' %}" class="float-left rounded-circle" style="max-width:60px; height: auto;">
           {% endif %}
           <strong class="text-info">{{ comment.created_by }}</strong>
           <small class="text-muted">{{ comment.created_at }}</small>
