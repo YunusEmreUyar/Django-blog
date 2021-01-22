@@ -8,7 +8,8 @@ The blog has authentication system, forgot password mailing system, category vie
 
 Some pictures from the project:
 
-![Screenshot](/for_readme/home1.png)
-![Screenshot](/for_readme/respo1.png)
-![Screenshot](/for_readme/respo2.png)
-![Screenshot](/for_readme/loginscreen.png)
+![](/for_readme/Homepage.png)
+![](/for_readme/Responsive1.png)
+![](/for_readme/Responsive2.png)
+![](/for_readme/Login.png)
+![](/for_readme/Register.png)
