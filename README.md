@@ -6,8 +6,10 @@ The blog has authentication system, forgot password mailing system, category vie
 
 'blog' folder is the main folder. And all logos and marks are fictional.
 
-Some pictures from the project:
+Google Pagespeed Insights desktop report
+![](https://github.com/YunusEmreUyar/Django-blog/commit/2bbc1efc3bba8f526d565a4603d5a4b5d37ae3cc#commitcomment-48197585) 
 
+Some pictures from the project:
 ![](/for_readme/Homepage.png)
 ![](/for_readme/Responsive1.png)
 ![](/for_readme/Responsive2.png)
